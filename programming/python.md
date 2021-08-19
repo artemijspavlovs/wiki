@@ -6,12 +6,15 @@
     - [Cheat Sheets](#cheat-sheets)
 - [Virtual Environments](#virtual-environments)
     - [Using Virtual Environments](#using-virtual-environments)
+- [Python Basics](#python-basics)
+  - [Math Data Types](#math-data-types)
+    - [Math Operations](#math-operations)
 
 # Sources
 
 [The Modern Python 3 Bootcamp](https://www.udemy.com/course/the-modern-python3-bootcamp/) by [Colt Steele](https://www.udemy.com/user/coltsteele/)
 
-[Zero to Mastery : Complete Python Developer in 2021](https://www.udemy.com/course/complete-python-developer-zero-to-mastery/) by [Andrei Neagoie](https://www.udemy.com/user/andrei-neagoie/)
+[Zero to Mastery: Complete Python Developer in 2021](https://www.udemy.com/course/complete-python-developer-zero-to-mastery/) by [Andrei Neagoie](https://www.udemy.com/user/andrei-neagoie/)
 
 > Zero to Mastery have opened their own [Academy](https://academy.zerotomastery.io), which has become one of the few learning sources that I use on daily basis.
 
@@ -60,7 +63,7 @@ which python3
 which pip3
 ```
 
-In order to deactivate the virtual environment, run `deactivate` command from your shell
+To deactivate the virtual environment, run the `deactivate` command from your shell
 
 You can reuse the packages that were installed in the virtual environment by exporting them to a file
 
@@ -73,4 +76,56 @@ and installing them on a different host / inside another virtual environment.
 
 ```bash
 pip3 install -r /path/to/requirements.txt --user $(whoami)
+```
+
+# Python Basics
+
+## Math Data Types
+
+```python
+$ type(9)
+<class 'int'>
+```
+
+```python
+$ type(9.0)
+<class 'float'>
+```
+
+> If any math equation involves a float, the result will always be a **float**
+
+### Math Operations
+
+`+` addition
+
+`-` subtraction
+
+`*` multiplication
+
+`/` division - **always returns a float**
+
+```py
+$ 10/25.0
+0.4
+```
+
+`**` exponential - raise a number to a power
+
+```py
+$ 2**19
+524288
+```
+
+`%` modulo - what is the remainder after putting second value into first
+
+```py
+$ 10%3
+1
+```
+
+`//` integer division - returns an `int` after division, instead of `float`
+
+```py
+$ 10//3
+3
 ```

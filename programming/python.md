@@ -9,6 +9,9 @@
 - [Python Basics](#python-basics)
   - [Math Data Types](#math-data-types)
     - [Math Operations](#math-operations)
+  - [Variables](#variables)
+    - [Variable Definition](#variable-definition)
+    - [Naming Convensions](#naming-convensions)
 
 # Sources
 
@@ -129,3 +132,32 @@ $ 10%3
 $ 10//3
 3
 ```
+
+## Variables
+
+### Variable Definition
+
+Python is a [dynamically typed](https://stackoverflow.com/a/1517670) language, meaning you don't have to specify variable type when writing code.
+
+```py
+my_var = 199
+a_long_variable_that_describes_things = "hi, I'm a variable"
+```
+
+you can also define multiple variables at once
+
+```py
+var_1, var_2, var_3 = 1, 'tree', 7.0
+```
+
+### Naming Convensions
+
+You can find more information in [this detailed guide](https://pythonguides.com/python-naming-conventions/) and in the [PEP8 Style Guide](https://www.python.org/dev/peps/pep-0008/#naming-conventions)
+
+- **variables** should be defined in `snake_case`
+- **constants** should be all-caps in `SNAKE_CASE`
+- **classes** are usually named using `CamelCase`
+- program variables that should not be touched are identified with `__underscores_on_both_sides__`
+
+- variable name must start with an **alphabet** or **underscore** ( `_` ) symbol
+- variable names can only contain `A-Z,a-z,0-9` and underscore( `_` ).

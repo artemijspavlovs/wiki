@@ -12,6 +12,8 @@
   - [Variables](#variables)
     - [Variable Definition](#variable-definition)
     - [Naming Convensions](#naming-convensions)
+- [Data Types](#data-types)
+  - [Escape Sequences](#escape-sequences)
 
 # Sources
 
@@ -161,3 +163,24 @@ You can find more information in [this detailed guide](https://pythonguides.com/
 
 - variable name must start with an **alphabet** or **underscore** ( `_` ) symbol
 - variable names can only contain `A-Z,a-z,0-9` and underscore( `_` ).
+
+# Data Types
+
+Python is a dynamically typed language, which means that data types can be changed when reassigning value.
+
+| Data Type  |                     Definition                     |           Description           |
+| :--------: | :------------------------------------------------: | :-----------------------------: |
+|  Boolean   |                    `var = True`                    |        `True` or `False`        |
+|   String   |                `var = "hello git"`                 |     sequence of characters      |
+|  Integer   |                    `var = 2100`                    |           real number           |
+|    List    |               `var = [1, 4, "tree"]`               |      an sequence of values      |
+| Dictionary | `var = {"name": "artemijs", "surname": "pavlovs"}` | a collection of key:value pairs |
+
+## Escape Sequences
+
+[python.org - String and Bytes literals](https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals)
+
+```py
+$ "I need to use \"double quotations\" all the time"
+"I need to use "double quotations" all the time"
+```

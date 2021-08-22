@@ -201,11 +201,7 @@ Python is a dynamically typed language, which means that data types can be chang
 
 ```py
 "I need to use \"double quotations\" all the time"
-```
-
-```py
-# OUTPUT:
-"I need to use "double quotations" all the time"
+# "I need to use "double quotations" all the time"
 ```
 
 ## Concatination
@@ -218,11 +214,7 @@ string2 = 'github'
 string3 = string1 + " " + string2
 
 print(string3)
-```
-
-```py
-# OUTPUT:
-hello github
+# hello github
 ```
 
 ### Formatting Strings
@@ -239,44 +231,28 @@ blog = "blog.artpav.dev"
 
 ```py
 print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
-```
-
-```py
-# OUTPUT:
-Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 - `.format` keyword - used in Python 2.6+
 
 ```py
 print("Hi there! My name is {} {}, check out my blog at {}!".format(name,surname,blog))
-```
-
-```py
-# OUTPUT:
-Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 You can change the order or reuse a value inside the string using index values of the variables.
 
 ```py
 print("Hi there! My name is {1} {0}, check out my blog at {2}!".format(name,surname,blog))
-```
-
-```py
-# OUTPUT:
-Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 - substritution using `%s`
 
 ```py
 print("Hi there! My name is %s %s, check out my blog at %s!" % (name,surname,blog))
-```
-
-```py
-# OUTPUT:
-Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 The substitution approach is not great because you can't reuse values. Value has to be specified for each `%s` special symbol.

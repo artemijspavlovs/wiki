@@ -12,8 +12,10 @@
   - [Variables](#variables)
     - [Variable Definition](#variable-definition)
     - [Naming Convensions](#naming-convensions)
-- [Data Types](#data-types)
+  - [Data Types](#data-types)
   - [Escape Sequences](#escape-sequences)
+  - [Concatination](#concatination)
+    - [Formatting Strings](#formatting-strings)
 
 # Sources
 
@@ -164,7 +166,7 @@ You can find more information in [this detailed guide](https://pythonguides.com/
 - variable name must start with an **alphabet** or **underscore** ( `_` ) symbol
 - variable names can only contain `A-Z,a-z,0-9` and underscore( `_` ).
 
-# Data Types
+## Data Types
 
 Python is a dynamically typed language, which means that data types can be changed when reassigning value.
 
@@ -178,9 +180,64 @@ Python is a dynamically typed language, which means that data types can be chang
 
 ## Escape Sequences
 
+> Escape sequences are used to represent certain special characters within string literals and character literals.
+
 [python.org - String and Bytes literals](https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals)
 
 ```py
 $ "I need to use \"double quotations\" all the time"
 "I need to use "double quotations" all the time"
 ```
+
+## Concatination
+
+> Joining character strings
+
+```py
+$ string1 = 'hello'
+$ string2 = 'github'
+$ string3 = string1 + " " + string2
+
+$ print(string3)
+hello github
+```
+
+### Formatting Strings
+
+There are 3 ways to format strings in Python
+
+```py
+$ name = "Artemijs"
+$ surname = "Pavlovs"
+$ blog = "blog.artpav.dev"
+```
+
+- `f` strings - the preffered way to format strings in Python 3
+
+```py
+$ print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
+Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+```
+
+- `.format` keyword - used in Python 2.6+
+
+```py
+$ print("Hi there! My name is {} {}, check out my blog at {}!".format(name,surname,blog))
+Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+```
+
+You can change the order or reuse a value inside the string using index values of the variables.
+
+```py
+$ print("Hi there! My name is {1} {0}, check out my blog at {2}!".format(name,surname,blog))
+Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+```
+
+- substritution using `%s`
+
+```py
+$ print("Hi there! My name is %s %s, check out my blog at %s!" % (name,surname,blog))
+Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+```
+
+The substitution approach is not great because you can't reuse values. Value has to be specified for each `%s` special symbol.

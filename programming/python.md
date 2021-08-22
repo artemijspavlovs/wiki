@@ -22,6 +22,15 @@
       - [Logical Operators](#logical-operators)
       - [`is` vs `==`](#is-vs-)
     - [Conditional Statements](#conditional-statements)
+  - [Loops](#loops)
+    - [`for` Loops](#for-loops)
+    - [Ranges](#ranges)
+    - [Enumerate](#enumerate)
+    - [`while` Loops](#while-loops)
+    - [Controlled Exiting a Loop](#controlled-exiting-a-loop)
+      - [while](#while)
+      - [for](#for)
+      - [breaking keywords](#breaking-keywords)
 
 # Sources
 
@@ -96,12 +105,12 @@ pip3 install -r /path/to/requirements.txt --user $(whoami)
 ## Math Data Types
 
 ```python
-$ type(9)
+type(9)
 <class 'int'>
 ```
 
 ```python
-$ type(9.0)
+type(9.0)
 <class 'float'>
 ```
 
@@ -118,28 +127,28 @@ $ type(9.0)
 `/` division - **always returns a float**
 
 ```py
-$ 10/25.0
+10/25.0
 0.4
 ```
 
 `**` exponential - raise a number to a power
 
 ```py
-$ 2**19
+2**19
 524288
 ```
 
 `%` modulo - what is the remainder after putting second value into first
 
 ```py
-$ 10%3
+10%3
 1
 ```
 
 `//` integer division - returns an `int` after division, instead of `float`
 
 ```py
-$ 10//3
+10//3
 3
 ```
 
@@ -191,7 +200,11 @@ Python is a dynamically typed language, which means that data types can be chang
 [python.org - String and Bytes literals](https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals)
 
 ```py
-$ "I need to use \"double quotations\" all the time"
+"I need to use \"double quotations\" all the time"
+```
+
+```py
+# OUTPUT:
 "I need to use "double quotations" all the time"
 ```
 
@@ -200,11 +213,15 @@ $ "I need to use \"double quotations\" all the time"
 > Joining character strings
 
 ```py
-$ string1 = 'hello'
-$ string2 = 'github'
-$ string3 = string1 + " " + string2
+string1 = 'hello'
+string2 = 'github'
+string3 = string1 + " " + string2
 
-$ print(string3)
+print(string3)
+```
+
+```py
+# OUTPUT:
 hello github
 ```
 
@@ -213,36 +230,52 @@ hello github
 There are 3 ways to format strings in Python
 
 ```py
-$ name = "Artemijs"
-$ surname = "Pavlovs"
-$ blog = "blog.artpav.dev"
+name = "Artemijs"
+surname = "Pavlovs"
+blog = "blog.artpav.dev"
 ```
 
 - `f` strings - the preffered way to format strings in Python 3
 
 ```py
-$ print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
+print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
+```
+
+```py
+# OUTPUT:
 Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 - `.format` keyword - used in Python 2.6+
 
 ```py
-$ print("Hi there! My name is {} {}, check out my blog at {}!".format(name,surname,blog))
+print("Hi there! My name is {} {}, check out my blog at {}!".format(name,surname,blog))
+```
+
+```py
+# OUTPUT:
 Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 You can change the order or reuse a value inside the string using index values of the variables.
 
 ```py
-$ print("Hi there! My name is {1} {0}, check out my blog at {2}!".format(name,surname,blog))
+print("Hi there! My name is {1} {0}, check out my blog at {2}!".format(name,surname,blog))
+```
+
+```py
+# OUTPUT:
 Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 - substritution using `%s`
 
 ```py
-$ print("Hi there! My name is %s %s, check out my blog at %s!" % (name,surname,blog))
+print("Hi there! My name is %s %s, check out my blog at %s!" % (name,surname,blog))
+```
+
+```py
+# OUTPUT:
 Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
@@ -330,9 +363,137 @@ As an example, can be used to return a different greeting, depending on a role.
 
 ```py
 if role == "Admin":
-	print("Greetings, Administrator")
+    print("Greetings, Administrator")
 elif role == "User":
-	print("Hi there, User!")
+    print("Hi there, User!")
 else:
-	print("Hello, stranger!")
+    print("Hello, stranger!")
 ```
+
+## Loops
+
+### `for` Loops
+
+> Performs an action on each item in an [iterable object](https://pythonbasics.org/iterable/)
+
+```py
+for item in iterable_object:
+    perform_action_on(item)
+```
+
+```py
+arr = [1,2,3,4]
+for item in arr:
+    print(item)
+```
+
+```py
+# OUTPUT:
+1
+2
+3
+4
+```
+
+### Ranges
+
+> Generates an iterable object consistinf of integers, by default starts from 0 and does not include the last item
+
+```py
+rng = range(7)
+# creates a range from 0 to 6
+for i in rng:
+     print(i)
+```
+
+```py
+# OUTPUT:
+0
+1
+2
+3
+4
+5
+6
+```
+
+`range(1,9)` - creates a range from 1 to 8
+
+`range(1,10,2)` - creates a range from 1 to 9, jumping forward 2 numbers at a time
+
+`range(1,7,-1)` - creates a range from 7 to 1
+
+### Enumerate
+
+> Take an index value of an iterable object and return index value + object value as key:value pairs
+
+```py
+my_string = 'string'
+for index, char in enumerate(my_string):
+    print(index, char)
+```
+
+```py
+# OUTPUT:
+0 s
+1 t
+2 r
+3 i
+4 n
+5 g
+```
+
+### `while` Loops
+
+> Perform an action while an expression is truthy
+
+```py
+value = 1
+while value <= 4:
+  print(value)
+  value +=1
+```
+
+```py
+# OUTPUT:
+1
+2
+3
+4
+```
+
+### Controlled Exiting a Loop
+
+#### while
+
+```py
+while True:
+    command = input("type 'exit' to stop this ")
+    if command == "exit": # exit the loop if the input is equal to 'exit'
+        break
+```
+
+```py
+# OUTPUT:
+type 'exit' to stop this a
+type 'exit' to stop this dont stop
+type 'exit' to stop this exit
+# exits the loop
+```
+
+#### for
+
+```py
+for x in range(1,103):
+	print(x)
+	if x == 5: # exit the loop if x is equal to 5
+		break
+```
+
+#### breaking keywords
+
+`break` - exits from current enclosing loop
+
+`continue` - proceed to the top of the current enclosing loop
+
+`pass` - do nothing

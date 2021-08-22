@@ -16,6 +16,12 @@
   - [Escape Sequences](#escape-sequences)
   - [Concatination](#concatination)
     - [Formatting Strings](#formatting-strings)
+  - [Boolean and Conditional](#boolean-and-conditional)
+    - [Operators](#operators)
+      - [Comparison Operators](#comparison-operators)
+      - [Logical Operators](#logical-operators)
+      - [`is` vs `==`](#is-vs-)
+    - [Conditional Statements](#conditional-statements)
 
 # Sources
 
@@ -241,3 +247,92 @@ Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
 ```
 
 The substitution approach is not great because you can't reuse values. Value has to be specified for each `%s` special symbol.
+
+## Boolean and Conditional
+
+### Operators
+
+|Comparison Operators|
+
+#### Comparison Operators
+
+| Operator | Explanation                                            |
+| :------: | :----------------------------------------------------- |
+|   `==`   | True if value `a` **is** equal to value `b`            |
+|   `!=`   | True if value `a` **is not** equal to value `b`        |
+|   `>`    | True if value `a` **is greater** then value `b`        |
+|   `<`    | True if value `a` **is smaller** then value `b`        |
+|   `>=`   | True if value `a` **is greater or equal** to value `b` |
+|   `<=`   | True if value `a` **is smaller or equal** to value `b` |
+
+#### Logical Operators
+
+`and` - Evaluates to `True` if `a` and `b` are truthy
+
+```py
+if weekday and working_hours:
+  work()
+```
+
+`or` - Evaluates to `True` if `a` or `b` are truthy
+
+```py
+if weekend or holiday:
+  relax()
+```
+
+`not` - Evaluates to `True` if the opposite of the value is true
+
+```py
+if not weekend:
+  work()
+```
+
+#### `is` vs `==`
+
+`==` checks whether the values are the same
+
+```py
+a = 1 # assigns value 1 to var 'a'
+a == 1
+# True
+a is 1
+# True, because both point to the same location in memory
+```
+
+```py
+a = [1,2,3,4]
+b = [1,2,3,4]
+a == b
+# True
+a is b
+# False, because lists were created in different memory locations
+```
+
+`is` checks whether the objects are the same and they are located in the same place in memory
+
+```py
+b = c
+b is c
+# True
+```
+
+### Conditional Statements
+
+Return a value depending on whether expression returns [Truthy or Falsy](https://www.freecodecamp.org/news/truthy-and-falsy-values-in-python/) values
+
+```py
+if True:
+    return "What you're saying is absolutely True!"
+```
+
+As an example, can be used to return a different greeting, depending on a role.
+
+```py
+if role == "Admin":
+	print("Greetings, Administrator")
+elif role == "User":
+	print("Hi there, User!")
+else:
+	print("Hello, stranger!")
+```

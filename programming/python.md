@@ -34,14 +34,23 @@
   - [Lists](#lists)
     - [Accessing List Values](#accessing-list-values)
     - [Checking if a list contains a value](#checking-if-a-list-contains-a-value)
-    - [Slicing](#slicing)
+    - [Slicing a List](#slicing-a-list)
     - [List Comprehensions](#list-comprehensions)
       - [List Comprehensions with Conditional Logic](#list-comprehensions-with-conditional-logic)
     - [List Methods](#list-methods)
-      - [Adding Values](#adding-values)
-      - [Removing Values](#removing-values)
-      - [Other Methods](#other-methods)
+      - [Adding Values to List](#adding-values-to-list)
+      - [Removing Values from List](#removing-values-from-list)
+      - [Other List Methods](#other-list-methods)
     - [Nested Lists ( Matrix )](#nested-lists--matrix-)
+  - [Dictionaries](#dictionaries)
+    - [Accessing Dictionary Values](#accessing-dictionary-values)
+    - [Adding Values To Dictionary](#adding-values-to-dictionary)
+    - [Dictionary Comprehensions](#dictionary-comprehensions)
+    - [Dictionary Methods](#dictionary-methods)
+      - [Adding Values to Dictionary](#adding-values-to-dictionary-1)
+      - [Removing Values from Dictionary](#removing-values-from-dictionary)
+      - [Other Dictionary Methods](#other-dictionary-methods)
+    - [Using `in` with Dictionaries](#using-in-with-dictionaries)
 
 # Sources
 
@@ -470,9 +479,9 @@ type 'exit' to stop this exit
 
 ```py
 for x in range(1,103):
-	print(x)
-	if x == 5: # exit the loop if x is equal to 5
-		break
+    print(x)
+    if x == 5: # exit the loop if x is equal to 5
+        break
 ```
 
 #### breaking keywords
@@ -513,7 +522,7 @@ print(tasks[-1])
 # True
 ```
 
-### Slicing
+### Slicing a List
 
 > `a_list[start:end:step]`
 
@@ -594,7 +603,7 @@ print(evens)
 numbers = [0,1,2,3,4,5]
 ```
 
-#### Adding Values
+#### Adding Values to List
 
 `.append(value_to_add)` - adds **one** value to the end of the list
 
@@ -620,9 +629,9 @@ numbers
 # [0, 1, 'something completely new', 2, 3, 4, 5]
 ```
 
-#### Removing Values
+#### Removing Values from List
 
-`.clear()` - clear the list
+`.clear()` - empties the list
 
 ```py
 numbers.clear()
@@ -655,7 +664,7 @@ numbers
 # [0, 1, 2, 3, 4, 5]
 ```
 
-#### Other Methods
+#### Other List Methods
 
 `.index(what_to_search_for, starting_index, ending_index)` - get the index of an item
 
@@ -721,4 +730,179 @@ nested_list[-1][1]
 # 8
 nested_list[1,2]
 # 6
+```
+
+## Dictionaries
+
+> Dictionaries are defined using {}
+
+> a collection of key:value pairs
+
+```py
+user =  {
+    "name": "artemijs",
+    "hobbies": ["learn", "teach", "work", "create"],
+    "blog": "blog.artpav.dev",
+    "wish": ["contribute to open source"]
+}
+```
+
+### Accessing Dictionary Values
+
+`dictionary["key"]`
+
+```py
+user["name"]
+# 'artemijs'
+```
+
+### Adding Values To Dictionary
+
+```py
+user["pet"] = "dog"
+user
+# {'name': 'artemijs',
+# 'hobbies': ['learn', 'teach', 'work', 'create'],
+# 'blog': 'blog.artpav.dev',
+# 'wish': ['contribute to open source'],
+# 'pet': 'dog'}
+```
+
+### Dictionary Comprehensions
+
+`{expression_key : expression_value for key, value in dictionary_name}`
+
+```py
+numbers = {
+	"one":1,
+	"two":2,
+	"three":3
+}
+
+{key+key : value ** 2 for key, value in numbers.items()}
+
+# {'oneone': 1, 'twotwo': 4, 'threethree': 9}
+```
+
+loop through numbers and create a dictionary where the key is the number and the value is whether it's odd or even.
+
+```py
+numbers = [1,2,3,4]
+{ num:("even" if num % 2 == 0 else "odd") for num in numbers }
+# {1: 'odd', 2: 'even', 3: 'odd', 4: 'even'}
+```
+
+### Dictionary Methods
+
+```py
+dictionary =  {
+    "name": "artemijs",
+    "hobbies": ["learn", "teach", "work", "create"],
+    "blog": "blog.artpav.dev",
+    "wish": ["contribute to open source"]
+}
+```
+
+`.values()` - return values for all properties in the dictionary
+
+```py
+dictionary.values()
+# dict_values(['artemijs', ['learn', 'teach', 'work', 'create'], 'blog.artpav.dev', ['contribute to open source']])
+```
+
+`.keys()` - return keys for all properties in the dictionary
+
+```py
+dictionary.keys()
+# dict_keys(['name', 'hobbies', 'blog', 'wish'])
+```
+
+`.items()` - return key:value pairs for the dictionary
+
+```py
+dictionary.items(),
+# dict_items([('name', 'artemijs'), ('hobbies', ['learn', 'teach', 'work', 'create']), ('blog', 'blog.artpav.dev'), ('wish', ['contribute to open source'])])
+```
+
+`.get(key)` - retrieve value for a specific dictionary key
+
+```py
+dictionary.get("name")
+# 'artemijs'
+```
+
+#### Adding Values to Dictionary
+
+`.update(new_item)` - put key:value pair into the dictionary
+
+```py
+phone_number = {"phone_number":"+xxxxxxxxx"}
+dictionary.update(phone_number)
+dictionary
+# {'name': 'artemijs',
+# 'hobbies': ['learn', 'teach', 'work', 'create'],
+# 'blog': 'blog.artpav.dev',
+# 'wish': ['contribute to open source'],
+# 'phone_number': '+xxxxxxxxx'}
+```
+
+#### Removing Values from Dictionary
+
+`.clear()` - empties the dictionary
+
+```py
+dictionary.clear()
+dictionary
+# {}
+```
+
+`pop(key)` - removes a value by its key. Returns the value of the key that was removed
+
+```py
+dictionary.pop("wish")
+# ['contribute to open source']
+```
+
+`.popitem()` - remove a random key:value pair from the dictionary
+
+```py
+dictionary.popitem()
+# ('wish', ['contribute to open source'])
+```
+
+#### Other Dictionary Methods
+
+`.copy()` - creates a clone of dictionary in a separate object
+
+```py
+new_dictionary=dictionary.copy()
+new_dictionary
+# {'name': 'artemijs', 'hobbies': ['learn', 'teach', 'work', 'create'], 'blog': 'blog.artpav.dev'}
+new_dictionary == dictionary
+# True
+new_dictionary is dictionary
+# False
+```
+
+`.fromkeys()` - creates key:value pairs from strings
+
+> useful to assign a value to a list of keys.
+
+```py
+{}.fromkeys(['email', 'passion', 'website'], None)
+# {'email': None, 'passion': None, 'website': None}
+```
+
+### Using `in` with Dictionaries
+
+> Looking in dictionaries keys be default, use `dictionary.values()` to override
+
+```py
+"name" in dictionary
+# True
+```
+
+```py
+"artemijs" in dictionary.values()
+# True
 ```

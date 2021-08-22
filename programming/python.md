@@ -51,6 +51,7 @@
       - [Removing Values from Dictionary](#removing-values-from-dictionary)
       - [Other Dictionary Methods](#other-dictionary-methods)
     - [Using `in` with Dictionaries](#using-in-with-dictionaries)
+  - [Tuples](#tuples)
 
 # Sources
 
@@ -734,7 +735,7 @@ nested_list[1,2]
 
 ## Dictionaries
 
-> Dictionaries are defined using {}
+> Dictionaries are defined using `{}`
 
 > a collection of key:value pairs
 
@@ -906,3 +907,11 @@ new_dictionary is dictionary
 "artemijs" in dictionary.values()
 # True
 ```
+
+## Tuples
+
+> Tuples are defined using `()`
+
+- Tuples are **immutable**
+- **values cannot be added or removed** once tuple is created
+- used for constant values ( _for example - defining months of the year_ )

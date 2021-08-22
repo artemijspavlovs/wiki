@@ -31,6 +31,17 @@
       - [while](#while)
       - [for](#for)
       - [breaking keywords](#breaking-keywords)
+  - [Lists](#lists)
+    - [Accessing List Values](#accessing-list-values)
+    - [Checking if a list contains a value](#checking-if-a-list-contains-a-value)
+    - [Slicing](#slicing)
+    - [List Comprehensions](#list-comprehensions)
+      - [List Comprehensions with Conditional Logic](#list-comprehensions-with-conditional-logic)
+    - [List Methods](#list-methods)
+      - [Adding Values](#adding-values)
+      - [Removing Values](#removing-values)
+      - [Other Methods](#other-methods)
+    - [Nested Lists ( Matrix )](#nested-lists--matrix-)
 
 # Sources
 
@@ -261,8 +272,6 @@ The substitution approach is not great because you can't reuse values. Value has
 
 ### Operators
 
-|Comparison Operators|
-
 #### Comparison Operators
 
 | Operator | Explanation                                            |
@@ -473,3 +482,243 @@ for x in range(1,103):
 `continue` - proceed to the top of the current enclosing loop
 
 `pass` - do nothing
+
+## Lists
+
+> Lists are defined using `[]`
+
+### Accessing List Values
+
+List values are exposed using their index value inside the list.
+
+```py
+tasks = ["Install Python", "Learn Python", "Take a break"]
+print(tasks[0])
+# Install Python
+```
+
+You can access last items in an array using negative indexes
+
+```py
+print(tasks[-1])
+# Take a break
+```
+
+### Checking if a list contains a value
+
+```py
+"procrastinate" in tasks
+# False
+"Take a break" in tasks
+# True
+```
+
+### Slicing
+
+> `a_list[start:end:step]`
+
+`start` - starting index
+
+`end` - ending index
+
+`step` - number of items to jump
+
+> Creates a new list in memory
+
+```py
+countries=["uk", "ru", "us", "lv", "it"]
+```
+
+```py
+# start from index 1
+countries[1:]
+# ['ru', 'us', 'lv', 'it']
+```
+
+```py
+countries[-1:]
+# ['it']
+```
+
+```py
+countries[:2]
+# ['uk', 'ru']
+```
+
+```py
+# reverse a list
+countries[::-1]
+# ['it', 'lv', 'us', 'ru', 'uk']
+```
+
+### List Comprehensions
+
+> One line way to perform an action on item in an iterable object
+
+`[expression_for_item for item in iterable_object]`
+
+```py
+numbers = [0,1,2,3,4,5]
+```
+
+```py
+# multiply each number by 10
+[num*10 for num in numbers]
+# [0, 10, 20, 30, 40, 50]
+```
+
+```py
+# set the bool version of value for each item in the list
+[bool(num) for num in numbers]
+# [False, True, True, True, True, True]
+```
+
+#### List Comprehensions with Conditional Logic
+
+```py
+evens = [num for num in numbers if num % 2 == 0]
+print(evens)
+# [0, 2, 4]
+```
+
+```py
+# multiply even numbers by 2
+# divide odd numbers by 2
+[num*2 if num % 2 == 0 else num/2 for num in numbers]
+# [0, 0.5, 4, 1.5, 8, 2.5]
+```
+
+### List Methods
+
+```py
+numbers = [0,1,2,3,4,5]
+```
+
+#### Adding Values
+
+`.append(value_to_add)` - adds **one** value to the end of the list
+
+```py
+numbers.append(144)
+numbers
+# [0, 1, 2, 3, 4, 5, 144]
+```
+
+`.extend(values_to_add)` - add **multiple** values to the end of the list
+
+```py
+numbers.extend([12,32,44,59])
+numbers
+# [0, 1, 2, 3, 4, 5, 12, 32, 44, 59]
+```
+
+`.insert(index, value)` - add a value into specific location of the list
+
+```py
+numbers.insert(2, "something completely new")
+numbers
+# [0, 1, 'something completely new', 2, 3, 4, 5]
+```
+
+#### Removing Values
+
+`.clear()` - clear the list
+
+```py
+numbers.clear()
+numbers
+# []
+```
+
+`.pop(index)` - remove item at the provided index from the list, removes last if no index is provided. Returns what value was removed
+
+```py
+numbers.pop()
+# 5
+numbers
+# [0, 1, 2, 3, 4]
+```
+
+```py
+numbers.pop(0)
+# 0
+numbers
+# [1, 2, 3, 4, 5]
+```
+
+`.remove(value)` - remove the first occurance of the value you provide
+
+```py
+numbers = [0,1,2,4,3,4,5]
+numbers.remove(4)
+numbers
+# [0, 1, 2, 3, 4, 5]
+```
+
+#### Other Methods
+
+`.index(what_to_search_for, starting_index, ending_index)` - get the index of an item
+
+```py
+tasks = ["Install Python", "Learn Python", "Take break"]
+tasks.index("Learn Python")
+# 1
+```
+
+```py
+numbers = [4,1,2,3,4,1,3,4,1]
+print(f"searching between indexes 3 and 7\nlooking for 1,\nfound 1 at index {numbers.index(1,3,7)}")
+# searching between indexes 3 and 7
+# looking for 1,
+# found 1 at index 5
+```
+
+`.count(value)` - return the number reoccurances that a value has in the list
+
+```py
+nums = [4,1,2,3,4,1,3,4,1]
+print(f"there {nums.count(4)} occurances of number 4 in the list")
+# there 3 occurances of number 4 in the list
+```
+
+`.reverse()` - reverse the list ( uses the same list object, does not create a new object in memory )
+
+```py
+numbers = [0,1,2,3,4,5]
+numbers.reverse()
+numbers
+# [5, 4, 3, 2, 1, 0]
+```
+
+`.sort()` - sort list in ascenting order
+
+```py
+numbers = [0,1,20,0.3,4,5]
+numbers.sort()
+numbers
+# [0, 0.3, 1, 4, 5, 20]
+```
+
+`.join()` - create a string from all of the list items
+
+```py
+words = ["I", "want", "to", "create", "a", "wiki"]
+' '.join(words)
+# 'I want to create a wiki'
+```
+
+### Nested Lists ( Matrix )
+
+**Used for**
+
+- complex data structures
+- game boards
+- rows and columns for visualisation, tabulation and data grouping
+
+```py
+nested_list=[[1,2,3],[4,5,6],[7,8,9]]
+nested_list[-1][1]
+# 8
+nested_list[1,2]
+# 6
+```

@@ -27,7 +27,7 @@
     - [Ranges](#ranges)
     - [Enumerate](#enumerate)
     - [`while` Loops](#while-loops)
-    - [Controlled Exiting a Loop](#controlled-exiting-a-loop)
+    - [Exiting a Loop in a Controlled Manner](#exiting-a-loop-in-a-controlled-manner)
       - [while](#while)
       - [for](#for)
       - [breaking keywords](#breaking-keywords)
@@ -78,7 +78,7 @@ python -m venv $PROJECT_NAME
 source $PROJECT_NAME/bin/activate
 ```
 
-You can ensure that you're using the isolated python binary using the `which` command
+You can ensure that you're using the isolated python binary via the `which` command
 
 ```bash
 which python3
@@ -106,12 +106,12 @@ pip3 install -r /path/to/requirements.txt --user $(whoami)
 
 ```python
 type(9)
-<class 'int'>
+# <class 'int'>
 ```
 
 ```python
 type(9.0)
-<class 'float'>
+# <class 'float'>
 ```
 
 > If any math equation involves a float, the result will always be a **float**
@@ -128,28 +128,28 @@ type(9.0)
 
 ```py
 10/25.0
-0.4
+# 0.4
 ```
 
 `**` exponential - raise a number to a power
 
 ```py
 2**19
-524288
+# 524288
 ```
 
 `%` modulo - what is the remainder after putting second value into first
 
 ```py
 10%3
-1
+# 1
 ```
 
 `//` integer division - returns an `int` after division, instead of `float`
 
 ```py
 10//3
-3
+# 3
 ```
 
 ## Variables
@@ -438,7 +438,7 @@ while value <= 4:
 4
 ```
 
-### Controlled Exiting a Loop
+### Exiting a Loop in a Controlled Manner
 
 #### while
 

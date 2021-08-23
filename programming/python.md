@@ -52,6 +52,14 @@
       - [Other Dictionary Methods](#other-dictionary-methods)
     - [Using `in` with Dictionaries](#using-in-with-dictionaries)
   - [Tuples](#tuples)
+    - [Tuple Methods](#tuple-methods)
+  - [Sets](#sets)
+    - [Set Comprehensions](#set-comprehensions)
+    - [Set Methods](#set-methods)
+      - [Adding Values to Sets](#adding-values-to-sets)
+      - [Removing values from Sets](#removing-values-from-sets)
+      - [Other Set Methods](#other-set-methods)
+  - [Ternary Operator](#ternary-operator)
 
 # Sources
 
@@ -606,7 +614,7 @@ numbers = [0,1,2,3,4,5]
 
 #### Adding Values to List
 
-`.append(value_to_add)` - adds **one** value to the end of the list
+`.append(value_to_add)` - add **one** value to the end of the list
 
 ```py
 numbers.append(144)
@@ -632,7 +640,7 @@ numbers
 
 #### Removing Values from List
 
-`.clear()` - empties the list
+`.clear()` - empty the list
 
 ```py
 numbers.clear()
@@ -640,7 +648,7 @@ numbers
 # []
 ```
 
-`.pop(index)` - remove item at the provided index from the list, removes last if no index is provided. Returns what value was removed
+`.pop(index)` - remove an item at the provided index from the list, removes last if no index is provided. Returns what value was removed
 
 ```py
 numbers.pop()
@@ -683,7 +691,7 @@ print(f"searching between indexes 3 and 7\nlooking for 1,\nfound 1 at index {num
 # found 1 at index 5
 ```
 
-`.count(value)` - return the number reoccurances that a value has in the list
+`.count(value)` - return the number reoccurrences that a value has in the list
 
 ```py
 nums = [4,1,2,3,4,1,3,4,1]
@@ -849,7 +857,7 @@ dictionary
 
 #### Removing Values from Dictionary
 
-`.clear()` - empties the dictionary
+`.clear()` - empty the dictionary
 
 ```py
 dictionary.clear()
@@ -857,7 +865,7 @@ dictionary
 # {}
 ```
 
-`pop(key)` - removes a value by its key. Returns the value of the key that was removed
+`pop(key)` - remove a value by its key. Returns the value of the key that was removed
 
 ```py
 dictionary.pop("wish")
@@ -873,7 +881,7 @@ dictionary.popitem()
 
 #### Other Dictionary Methods
 
-`.copy()` - creates a clone of dictionary in a separate object
+`.copy()` - create a clone of dictionary in a separate object
 
 ```py
 new_dictionary=dictionary.copy()
@@ -885,7 +893,7 @@ new_dictionary is dictionary
 # False
 ```
 
-`.fromkeys()` - creates key:value pairs from strings
+`.fromkeys()` - create key:value pairs from strings
 
 > useful to assign a value to a list of keys.
 
@@ -913,5 +921,158 @@ new_dictionary is dictionary
 > Tuples are defined using `()`
 
 - Tuples are **immutable**
-- **values cannot be added or removed** once tuple is created
-- used for constant values ( _for example - defining months of the year_ )
+- **Values cannot be added or removed** once tuple is created
+- Used for constant values ( _for example - defining months of the year_ )
+
+### Tuple Methods
+
+List methods apply
+
+## Sets
+
+- Contain unique values
+- Automatically remove duplicates
+- Can't be indexes
+- Are iterable objects
+
+### Set Comprehensions
+
+`{x**2 for item in set}`
+
+### Set Methods
+
+```py
+tasks = {"Install Python", "Learn Python", "Take a break"}
+```
+
+#### Adding Values to Sets
+
+`.add(new_value)` - add value to set, no error is returned if the value is already present.
+
+```py
+tasks.add(1)
+tasks
+# {'Learn Python', 1, 'Take a break', 'Install Python'}
+```
+
+#### Removing values from Sets
+
+`.remove(value)` - remove value from a set, an error is thrown in case there is no such value.
+
+```py
+tasks.remove("Take a break")
+tasks
+# {'Learn Python', 'Install Python'}
+```
+
+`.discard(value)` - remove value from a set, no error is returned in case there is no such value
+
+```py
+tasks.discard("Take a break")
+```
+
+`.clear()` - empty the set
+
+```py
+tasks.clear()
+tasks
+# set()
+```
+
+#### Other Set Methods
+
+`.copy()` - create a clone of the set in a separate object
+
+```py
+new_tasks = tasks.copy()
+new_tasks
+# {'Learn Python', 'Take a break', 'Install Python'}
+new_tasks == tasks
+# True
+new_tasks is tasks
+# False
+```
+
+`.intersection(compare_with_set)` - return common values between 2 sets
+
+```py
+set_one = {1,2,3,4,5}
+set_two = {3,4,5,6,7,8}
+
+set_one.intersection(set_two)
+# {3, 4, 5}
+```
+
+`.isdisjoined(compare_with_set)` - return `bool` identifying whether the sets are not overlapping
+
+```py
+set_one = {1,2,3,4,5}
+set_two = {3,4,5,6,7,8}
+
+set_one.isdisjoint(set_two)
+# False
+# because they are overlapping
+```
+
+`.union(another_set)` - merge sets and create a new object
+
+```py
+set_one = {1,2,3,4,5}
+set_two = {3,4,5,6,7,8}
+
+set_three = set_one.union(set_two)
+set_three
+# {1, 2, 3, 4, 5, 6, 7, 8}
+```
+
+`.difference(compare_with_set)` - return the different values between 2 sets
+
+```py
+set_one = {1,2,3,4,5}
+set_two = {4,5,6,7,8}
+
+set_one.difference(set_two)
+# {1,2,3}
+```
+
+`.difference_update(another_set)` - update set by removing the common values between sets
+
+```py
+set_one = {1,2,3,4,5}
+set_two = {3,4,5,6,7,8}
+
+set_one.difference_update(set_two)
+set_one
+# {1,2}
+```
+
+`issubset(another_set)` - are all elements from the original set included in another set
+
+```py
+set_one = {4,5}
+set_two = {3,4,5,6,7,8}
+
+set_one.issubset(set_two)
+# True
+# becase all items from set_one are in set_two
+```
+
+`issuperset(another_set)` - are all elements from the another set included in original set
+
+```py
+set_one = {4,5}
+set_two = {3,4,5,6,7,8}
+
+set_one.issuperset(set_two)
+# False
+# becase not all items from set_two are in set_one
+```
+
+## Ternary Operator
+
+> shorter version of an if/else statement
+
+```py
+im_right = False
+print("I was correct!" if im_right else "I was wrong")
+```

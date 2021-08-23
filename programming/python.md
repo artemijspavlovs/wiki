@@ -71,6 +71,32 @@
     - [General](#general)
     - [Math](#math)
     - [zips](#zips)
+- [Advanced Python](#advanced-python)
+  - [Debugging](#debugging)
+  - [Modules](#modules)
+    - [Module Installation](#module-installation)
+    - [`__name__` variable](#__name__-variable)
+  - [Object Oriented Programming (OOP)](#object-oriented-programming-oop)
+      - [Class](#class)
+      - [Object](#object)
+    - [Why OOP?](#why-oop)
+      - [Abstraction](#abstraction)
+      - [Encapsulation](#encapsulation)
+    - [Comparison](#comparison)
+    - [Class Attribute Definition](#class-attribute-definition)
+    - [Hands-on Classes](#hands-on-classes)
+      - [Creating a class](#creating-a-class)
+      - [Initiating a class](#initiating-a-class)
+      - [Adding functionality](#adding-functionality)
+      - [Instance attributes](#instance-attributes)
+      - [Instance Methods](#instance-methods)
+      - [Class Attributes](#class-attributes)
+      - [`__repr__` method](#__repr__-method)
+      - [Inheritance](#inheritance)
+      - [Properties](#properties)
+      - [Multiple Inheritance](#multiple-inheritance)
+      - [Method Resolution Order ( MRO )'](#method-resolution-order--mro-)
+      - [Polymorphism](#polymorphism)
 
 # Sources
 
@@ -225,13 +251,13 @@ You can find more information in [this detailed guide](https://pythonguides.com/
 
 Python is a dynamically typed language, which means that data types can be changed when reassigning value.
 
-| Data Type  |                     Definition                     |           Description           |
-| :--------: | :------------------------------------------------: | :-----------------------------: |
-|  Boolean   |                    `var = True`                    |        `True` or `False`        |
-|   String   |                `var = "hello git"`                 |     sequence of characters      |
-|  Integer   |                    `var = 2100`                    |           real number           |
-|    List    |               `var = [1, 4, "tree"]`               |      an sequence of values      |
-| Dictionary | `var = {"name": "artemijs", "surname": "pavlovs"}` | a collection of key:value pairs |
+| Data Type  |                  Definition                   |           Description           |
+| :--------: | :-------------------------------------------: | :-----------------------------: |
+|  Boolean   |                 `var = True`                  |        `True` or `False`        |
+|   String   |              `var = "hello git"`              |     sequence of characters      |
+|  Integer   |                 `var = 2100`                  |           real number           |
+|    List    |            `var = [1, 4, "tree"]`             |      an sequence of values      |
+| Dictionary | `var = {"name": "Johny", "surname": "Bravo"}` | a collection of key:value pairs |
 
 ## Escape Sequences
 
@@ -262,8 +288,8 @@ print(string3)
 There are 3 ways to format strings in Python
 
 ```py
-name = "Artemijs"
-surname = "Pavlovs"
+name = "Johny"
+surname = "Bravo"
 blog = "blog.artpav.dev"
 ```
 
@@ -271,28 +297,28 @@ blog = "blog.artpav.dev"
 
 ```py
 print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
-# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Johny Bravo, check out my blog at blog.artpav.dev!
 ```
 
 - `.format` keyword - used in Python 2.6+
 
 ```py
 print("Hi there! My name is {} {}, check out my blog at {}!".format(name,surname,blog))
-# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Johny Bravo, check out my blog at blog.artpav.dev!
 ```
 
 You can change the order or reuse a value inside the string using index values of the variables.
 
 ```py
 print("Hi there! My name is {1} {0}, check out my blog at {2}!".format(name,surname,blog))
-# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Johny Bravo, check out my blog at blog.artpav.dev!
 ```
 
 - substritution using `%s`
 
 ```py
 print("Hi there! My name is %s %s, check out my blog at %s!" % (name,surname,blog))
-# Hi there! My name is Artemijs Pavlovs, check out my blog at blog.artpav.dev!
+# Hi there! My name is Johny Bravo, check out my blog at blog.artpav.dev!
 ```
 
 The substitution approach is not great because you can't reuse values. Value has to be specified for each `%s` special symbol.
@@ -760,7 +786,7 @@ nested_list[1,2]
 
 ```py
 user =  {
-    "name": "artemijs",
+    "name": "Johny",
     "hobbies": ["learn", "teach", "work", "create"],
     "blog": "blog.artpav.dev",
     "wish": ["contribute to open source"]
@@ -773,7 +799,7 @@ user =  {
 
 ```py
 user["name"]
-# 'artemijs'
+# 'Johny'
 ```
 
 ### Adding Values To Dictionary
@@ -781,7 +807,7 @@ user["name"]
 ```py
 user["pet"] = "dog"
 user
-# {'name': 'artemijs',
+# {'name': 'Johny',
 # 'hobbies': ['learn', 'teach', 'work', 'create'],
 # 'blog': 'blog.artpav.dev',
 # 'wish': ['contribute to open source'],
@@ -816,7 +842,7 @@ numbers = [1,2,3,4]
 
 ```py
 dictionary =  {
-    "name": "artemijs",
+    "name": "Johny",
     "hobbies": ["learn", "teach", "work", "create"],
     "blog": "blog.artpav.dev",
     "wish": ["contribute to open source"]
@@ -827,7 +853,7 @@ dictionary =  {
 
 ```py
 dictionary.values()
-# dict_values(['artemijs', ['learn', 'teach', 'work', 'create'], 'blog.artpav.dev', ['contribute to open source']])
+# dict_values(['Johny', ['learn', 'teach', 'work', 'create'], 'blog.artpav.dev', ['contribute to open source']])
 ```
 
 `.keys()` - return keys for all properties in the dictionary
@@ -841,14 +867,14 @@ dictionary.keys()
 
 ```py
 dictionary.items(),
-# dict_items([('name', 'artemijs'), ('hobbies', ['learn', 'teach', 'work', 'create']), ('blog', 'blog.artpav.dev'), ('wish', ['contribute to open source'])])
+# dict_items([('name', 'Johny'), ('hobbies', ['learn', 'teach', 'work', 'create']), ('blog', 'blog.artpav.dev'), ('wish', ['contribute to open source'])])
 ```
 
 `.get(key)` - retrieve value for a specific dictionary key
 
 ```py
 dictionary.get("name")
-# 'artemijs'
+# 'Johny'
 ```
 
 #### Adding Values to Dictionary
@@ -859,7 +885,7 @@ dictionary.get("name")
 phone_number = {"phone_number":"+xxxxxxxxx"}
 dictionary.update(phone_number)
 dictionary
-# {'name': 'artemijs',
+# {'name': 'Johny',
 # 'hobbies': ['learn', 'teach', 'work', 'create'],
 # 'blog': 'blog.artpav.dev',
 # 'wish': ['contribute to open source'],
@@ -897,7 +923,7 @@ dictionary.popitem()
 ```py
 new_dictionary=dictionary.copy()
 new_dictionary
-# {'name': 'artemijs', 'hobbies': ['learn', 'teach', 'work', 'create'], 'blog': 'blog.artpav.dev'}
+# {'name': 'Johny', 'hobbies': ['learn', 'teach', 'work', 'create'], 'blog': 'blog.artpav.dev'}
 new_dictionary == dictionary
 # True
 new_dictionary is dictionary
@@ -923,7 +949,7 @@ new_dictionary is dictionary
 ```
 
 ```py
-"artemijs" in dictionary.values()
+"Johny" in dictionary.values()
 # True
 ```
 
@@ -1271,4 +1297,419 @@ list(zip([1,2,3],[4,5,6]))
 ```python
 dict(zip([1,2,3],[4,5,6]))
 # Output {1: 4, 2: 5, 3: 6}
+```
+
+# Advanced Python
+
+## Debugging
+
+[Doc Reference : Built-in Exceptions](https://docs.python.org/3/library/exceptions.html)
+
+`raise` - raises an error of specific type
+
+```py
+raise ValueError("That's not something I expected")
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# ValueError: That's not something I expected
+```
+
+`try except` - return different messages depending on the error type
+
+```py
+try: # main code block,
+    do(stuff)
+except: # ErrorType can be provided to work with specific Errors, example :
+    TypeError:
+        print("you encountered a type error") # what to do on error
+except(RuntimeError, NameError):
+    print("you encountered one of other errors")
+```
+
+`finally` - code will be executed always at the end of the script
+
+```py
+try:# main code block,
+    do(stuff)
+except:# what to do on error
+else: # code block that runs if except is skipped
+finally: # runs always in the end
+    cleanup_tracks()
+```
+
+## Modules
+
+[Doc Reference : Python Module Index](https://docs.python.org/3/py-modindex.html)
+
+`import $MODULE_NAME` - regular import
+
+`import $MODULE_NAME as $CUSTOM_REFERENCE_NAME` - import module and assign custom name to it
+
+```py
+import random as rnd
+
+rnd.randint(1,123)
+# 17
+```
+
+### Module Installation
+
+`python -m pip install $MODULE_NAME`
+
+### `__name__` variable
+
+When you execute a command, the `__name__` variable is `__main__`.
+
+When you import another file into another file, the value of `__name__` variable will be **the name of imported file**.
+
+When importing a file, Python by default will run the command in the importable file.
+
+**Example**
+
+```py
+# define a function
+# print the name variable of the function
+def say_something():
+# execute the command inside the importable file only when the imported file is the main file
+    print(f"something {__name__}")
+
+if __name__ == "__main__":
+    say_something()
+```
+
+```py
+# in another file
+# when you import, it will not run say_something by default
+# because after importing the __name__ of the imported file will be changed to say_something
+import say_something
+def say_specific():
+    print(f"specific {__name__}")
+
+say_specific()
+say_something()
+```
+
+## Object Oriented Programming (OOP)
+
+> OOP is about representing something with an instance of code ( `class` and `objects of classes`) that has different properties ( `attributes` ) and it is able to perform actions using `methods`
+
+#### Class
+
+bluepring or specification of an object, classes can contain `methods` and `attributes`
+
+**Example**
+
+class `User`
+
+`attribute` - every user **has**
+
+- username
+- password
+- email
+
+`methods` - every user **can**
+
+- logout
+- change_email
+- post_article
+
+#### Object
+
+> An instance of a class is called `object`
+
+### Why OOP?
+
+> The primary goal of OOP is to encapsulate the code into logical, hierarchical groupings using `classes` so that you can reason about your code at a higher level
+
+#### Abstraction
+
+Exposing only relevant data (only public classes), hiding things that users should not access.
+
+#### Encapsulation
+
+> Grouping of public and private attributes and methods into programmatic `class`, making abstraction possible
+
+**Example**
+
+Designing a Deck clas you can make cards a private attribute since they are never accessed directly. You could use a public method in order to access cards.
+
+`_cards` - **private** list attribute
+`_max_cards` - **private** int attribute
+`shuffle` - **public** method
+`deal_card` - **public** method
+`deal_hand` - **public** method
+`count` - **public** method
+
+### Comparison
+
+**Attribute**
+
+- defined on class and is the same for all instances
+- defined for each object that is created from a class
+
+**Method**
+
+- defined for the class using `@classmethod` decorator
+- defined by default when creating a method inside a class
+
+### Class Attribute Definition
+
+`ClassName.attribute_name` - regular attributes that are ment to be exposed externally
+
+`ClassName._attribute_name` - private attributes or methods, **intended for class internal use only**
+
+> Python does not have any restriction built into the language
+
+### Hands-on Classes
+
+#### Creating a class
+
+class names have to be constructed in **CamelCase**
+
+```py
+class User:
+  pass
+```
+
+#### Initiating a class
+
+```py
+my_new_user = User()
+print(type(my_new_user))
+# <class '__main__.User'>
+```
+
+#### Adding functionality
+
+`__init__` [dunder method](https://www.geeksforgeeks.org/dunder-magic-methods-python/) - the **default action** that will be executed when class is called
+
+`self` - attribute that refers to the instance of the class object that will be created from class
+
+```py
+class User:
+  def __init__(self)
+    print("User was created!")
+```
+
+#### Instance attributes
+
+> additional attributes can be defined after the `self` attribute
+
+```py
+class User:
+  def __init__(self, first_name, surname):
+    print("User was created!")
+
+my_new_user = User('Johny', 'Bravo')
+```
+
+in order to access `first_name` and `surname` attributes from a class object, they must be defined under the `__init__` method
+
+```py
+class User:
+  def __init__(self, first_name, surname):
+    self.name = first_name
+    self.surname = surname
+
+my_new_user = User('Johny', 'Bravo')
+my_new_user.name
+# 'Johny'
+```
+
+#### Instance Methods
+
+New methods should be defined after dunder methods ( `__init__` etc.).
+
+```py
+class User:
+  def __init__(self, first_name, surname):
+    self.name = first_name
+    self.surname = surname
+  def full_name(self):
+    return f"{self.name} {self.surname}"
+
+my_new_user.full_name()
+# 'Johny Bravo'
+```
+
+#### Class Attributes
+
+> used to define a class level variable that is the same for all instances of the class
+
+Examples
+
+- keep track of a class property
+
+```py
+class User:
+  overall_users = 0
+  def __init__(self, first_name, surname):
+    self.name = first_name
+    self.surname = surname
+  def full_name(self):
+    return f"{self.name} {self.surname}"
+```
+
+- set limitations for specific properties
+
+```py
+class Pet:
+    allowed_pet_species = ['cat', 'dog', 'fish', 'rat']
+    def __init__(self, pet_name, specie)
+        if specie not in Pet.allowed_pet_species:
+            raise ValueError(f"You can't have a {specie} as a pet!")
+        self.name = name
+        self.specie = specie
+```
+
+#### `__repr__` method
+
+> represents the default value when printing the object created from class
+
+```py
+class User:
+    def __init__ (self, first_name, surname):
+        self.name = first_name
+        self.surname = surname
+    def __repr__ (self):
+        # when the object is called it will give back instance attribute'first_name'
+        return f"{self.name}"
+
+new_user = User("Johny", "Bravo")
+```
+
+without `__repr__`
+
+```py
+print(new_user)
+# <__main__.User object at 0x05B37150>
+```
+
+with `__repr__`
+
+```py
+new_user
+# Johny
+```
+
+#### Inheritance
+
+> Inherited class **has access to all resources** available in the **parent** class
+
+> `super().` defines that the attributes should be taken from the parent class
+
+> Inherited classes are defined with NewClass(ParentClass)
+
+```py
+class User:
+    def __init__ (self, first_name, surname, age):
+        self.name = first_name
+        self.surname = surname
+
+class Moderator(User):
+    def __init__ (self, first_name, surname, age, social_groups):
+    # commonly used for defining the common attributes
+      super().__init__(first_name, surname, age)
+      self.social_groups = social_groups
+```
+
+#### Properties
+
+> Are defined using `@property` decorator
+
+> setters are defined using `@property_name.setter` syntax
+
+```py
+@property
+def my_new_property(self):
+    return self._internal_attr
+# commonly used for retrieving a internal/private attribute
+
+@some_property.setter: #
+def my_new_property(self, new_value):
+    self._internal_attr = value # commonly used to update internal/private attributes
+```
+
+#### Multiple Inheritance
+
+> Consider not using it, please :)
+
+```py
+class User:
+    def __init__(self, user_attribute):
+        self.user_attribute = user_attribute
+        print(f"init user, from {user_attribute}")
+
+class Moderator():
+    def __init__(self, moderator_attribute):
+        self.moderator_attribute = moderator_attribute
+        print(f"init moderator, from {moderator_attribute}")
+```
+
+you define multiple parent classes using `NewClass(ParentClassOne, ParentClassTwo)` syntax
+
+```py
+class Administrator(User, Moderator):
+  def __init__(self, admin_attribute):
+    User.__init__(self, admin_attribute)
+    Moderator.__init__(self, admin_attribute)
+    print(f"init admin, from {admin_attribute}")
+```
+
+#### Method Resolution Order ( MRO )'
+
+> Returns the order in which, in case of inheritance, python will look for a method .
+
+`ClassName.mro()`
+
+`help(ClassName)`
+
+```py
+Administrator.mro()
+# [<class '__main__.Administrator'>, <class '__main__.User'>, <class '__main__.Moderator'>, <class 'object'>]
+
+help(Administrator)
+# class Administrator(User, Moderator)
+#  |  Administrator(admin_attribute)
+#  |
+#  |  Method resolution order:
+#  |      Administrator
+#  |      User
+#  |      Moderator
+#  |      builtins.object
+```
+
+#### Polymorphism
+
+> Method in a **subclass** overrides the value of the method in the **parent** class
+
+**Examples**
+
+- Method from ChildClass with the same name as one in the ParentClass does different things
+
+```py
+class Animal:
+    def speak(self):
+        raise NotImplementedError("Subclass must define this method")
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow"
+
+class Fish(Animal):
+    pass
+
+d = Dog()
+print(d.speak())
+# Woof
+f = Fish()
+print(f.speak())
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+#   File "<stdin>", line 3, in speak
+# NotImplementedError: Subclass must define this method
 ```

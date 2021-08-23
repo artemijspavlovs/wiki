@@ -97,6 +97,10 @@
       - [Multiple Inheritance](#multiple-inheritance)
       - [Method Resolution Order ( MRO )'](#method-resolution-order--mro-)
       - [Polymorphism](#polymorphism)
+  - [Iterators and Generators](#iterators-and-generators)
+    - [Iterators and Iterables](#iterators-and-iterables)
+    - [Generators](#generators)
+      - [Generator Comprehensions](#generator-comprehensions)
 
 # Sources
 
@@ -608,7 +612,7 @@ countries[::-1]
 
 ### List Comprehensions
 
-> One line way to perform an action on item in an iterable object
+> One line way to act on an item in an iterable object
 
 `[expression_for_item for item in iterable_object]`
 
@@ -1713,3 +1717,82 @@ print(f.speak())
 #   File "<stdin>", line 3, in speak
 # NotImplementedError: Subclass must define this method
 ```
+
+## Iterators and Generators
+
+### Iterators and Iterables
+
+`iterator` - object that can be iterated upon
+
+`iterable` - object that will be returned when `iter()` is called on an iterator
+
+- `iter()` creates an iterable object from any other object
+- `next()` returns the next object from iterable until `StopIteration` error is raised
+
+### Generators
+
+> All generators are iterables
+
+| Regular Function |                    Generator Function |
+| :--------------- | ------------------------------------: |
+| uses `return`    |                          uses `yield` |
+| returns **once** | can return `yield` **multiple times** |
+| returns a value  |                   returns a generator |
+
+- generator stores last state
+
+```py
+def count_to(max):
+  count = 1
+  while count <= max:
+    yield count
+    count += 1
+```
+
+```py
+g = count_to(5)
+g
+# <generator object count_to at 0x109ec4f20>
+list(g)
+# [1,2,3,4,5]
+next(g)
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# StopIteration
+```
+
+1. Create a generator `g`
+2. Retrieve values using `list(g)`
+3. Try to get next object in the iterable using `next(g)`
+
+> Fail, because all values were returned in `list(g)`
+
+```py
+g = count_to(5)
+next(g)
+# 1
+next(g)
+# 2
+next(g)
+# 3
+next(g)
+# 4
+next(g)
+# 5
+next(g)
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# StopIteration
+```
+
+1. Create a generator `g`
+2. Try to get next object in the iterable using `next(g)`
+3. Returns `count += 1` until condition is met, afterwards throws `StopIteration`
+
+#### Generator Comprehensions
+
+> Generator comprehension uses `()`
+
+> Faster processing compared to list comprehensions
+
+`(num for num in range(1,10))`

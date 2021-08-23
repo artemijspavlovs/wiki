@@ -60,6 +60,13 @@
       - [Removing values from Sets](#removing-values-from-sets)
       - [Other Set Methods](#other-set-methods)
   - [Ternary Operator](#ternary-operator)
+  - [Functions](#functions)
+    - [Function Documentation / Doc Strings](#function-documentation--doc-strings)
+    - [Scopes](#scopes)
+    - [`*args` and `*kwargs`](#args-and-kwargs)
+      - [\*args](#args)
+      - [\*\*kwargs](#kwargs)
+      - [Parameter Ordering](#parameter-ordering)
 
 # Sources
 
@@ -783,9 +790,9 @@ user
 
 ```py
 numbers = {
-	"one":1,
-	"two":2,
-	"three":3
+    "one":1,
+    "two":2,
+    "three":3
 }
 
 {key+key : value ** 2 for key, value in numbers.items()}
@@ -1076,3 +1083,131 @@ set_one.issuperset(set_two)
 im_right = False
 print("I was correct!" if im_right else "I was wrong")
 ```
+
+## Functions
+
+a function is initiated using `def` keyword
+
+`return` keyword is used to retrieve data from a function and exit the function as the next step.
+
+```py
+def square_of_three():
+    return 3**2
+
+x = square_of_3()
+print(x)
+```
+
+`parameter` - variable declaration in a function
+
+`argument` - value for the parameter when using a function
+
+```py
+def exponent(number,power=2): # list of parameters, default value for power parameter
+    return number**power
+
+x = exponent(number=2) # argument value
+print(x)
+```
+
+### Function Documentation / Doc Strings
+
+```py
+def my_awesome_function():
+    '''
+      Info: This function shows the documentation possibilities
+    '''
+    print("Read the docs")
+```
+
+```py
+print(my_awesome_function.__doc__)
+
+      Info: This function shows the documentation possibilities
+```
+
+### Scopes
+
+`local` - variables that are defined inside a function and can't be used outside of it
+
+```py
+global_var = "I am a global variable"
+
+def say_local(): #local variable, can't be used outside the function
+    function_var = "I am a local variable"
+    return f"{function_var}"
+
+print(say_local())
+# I am a local variable
+print(function_var)
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# NameError: name 'function_var' is not defined
+print(global_var)
+# I am a global variable
+```
+
+`global` - variables defined in the root of the code
+
+> global variables have to be refereb using `global variable_name` syntax
+
+```py
+total = 0 # global variable
+def increment():
+    global total
+    total += 1
+    return total
+
+print(increment())
+```
+
+`nonlocal` - variables defined in the parent function
+
+> global variables have to be refereb using `nonlocal variable_name` syntax
+
+```py
+def parent():
+    count = 0
+    def child():
+        nonlocal count # refers a variable in parent function
+        count += 1
+        return f"inner {count}"
+    print(child())
+    return f"outer {count}"
+```
+
+### `*args` and `*kwargs`
+
+[Doc reference](https://book.pythontips.com/en/latest/args_and_kwargs.html#args-and-kwargs)
+
+#### \*args
+
+- `*args` are stored as a tuple
+- `*args` profide the possibility to input any number of arguments when calling a function
+- args is the standard for defining dynamic arguments but any word can be used
+
+```py
+def sumnums(*args):
+     return sum(args)
+
+sumnums(1,2,3,4,5)
+# 15
+```
+
+#### \*\*kwargs
+
+- `*kwargs` are stored as a dictionary
+- you have to iterate through kwargs to perform actions with the arguments
+
+```py
+def do_kwargs(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key} has a value of {value}")
+
+# you have to define a * before variable in order to unpack something
+do_kwargs(name="Elon", surname="Musk", planet="Mars")
+```
+
+#### Parameter Ordering
+
+`def my_function( parameters, \*args, default_parameters, \*\*kwargs )`

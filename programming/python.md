@@ -101,6 +101,10 @@
     - [Iterators and Iterables](#iterators-and-iterables)
     - [Generators](#generators)
       - [Generator Comprehensions](#generator-comprehensions)
+  - [Decorators](#decorators)
+    - [Higher Order Function](#higher-order-function)
+    - [Decorators](#decorators-1)
+      - [Preserving metadata](#preserving-metadata)
 
 # Sources
 
@@ -1796,3 +1800,108 @@ next(g)
 > Faster processing compared to list comprehensions
 
 `(num for num in range(1,10))`
+
+## Decorators
+
+### Higher Order Function
+
+> Function that accepts other functions as arguments or returns other functions
+
+### Decorators
+
+Functions that
+
+- Wrap other functions and enhance their functionality
+- Have special syntax, `@derocator_function`
+
+#### Preserving metadata
+
+Make sure that the metadata of called function is not replaced by the metadata of the **wrapper** function is fixed by `wraps` decorator
+
+```py
+from functools import wraps
+```
+
+**Before `wraps`**
+
+```py
+def log_function_data(func):
+    def wrapper(*args, **kwargs):
+        # Preversing metadata
+        """THE WRAPPER function"""
+        print(f"you are about to call {func.__name__}")
+        print(f"here's the documentation: {func.__doc__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@log_function_data
+def add(a, b):
+    """Adds 2 numbers together"""
+    return a+b
+
+
+print(add(12, 23))
+
+# Preversing metadata
+print(add.__doc__)
+print(add.__name__)
+print(help(add))
+```
+
+**After `wraps`**
+
+```py
+# import wraps
+from functools import wraps
+
+
+def log_function_data(func):
+    @wraps(func)  # @wraps decorator with the function name that should be 'saved'
+    def wrapper(*args, **kwargs):
+        # Preversing metadata
+        """THE WRAPPER function"""
+        print(f"you are about to call {func.__name__}")
+        print(f"here's the documentation: {func.__doc__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@log_function_data
+def add(a, b):
+    """Adds 2 numbers together"""
+    return a+b
+
+
+print(add(12, 23))
+
+# Preversing metadata
+print(add.__doc__)
+print(add.__name__)
+print(help(add))
+```
+
+- Decorators can also be used to restrict arguments for function
+
+```py
+from functools import wraps
+
+
+def no_kwargs(fun):
+    @wraps(fun)
+    def wrapper(*args, **kwargs):
+        if kwargs:
+            raise ValueError("YOU CAN'T USE KWARGS")
+        return fun(*args, **kwargs)
+    return wrapper
+
+
+@no_kwargs
+def greet(name):
+    print(f"hello, {name}")
+
+
+greet("art")
+
+greet(name="art")
+```

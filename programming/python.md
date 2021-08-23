@@ -105,6 +105,7 @@
     - [Higher Order Function](#higher-order-function)
     - [Decorators](#decorators-1)
       - [Preserving metadata](#preserving-metadata)
+  - [Testing](#testing)
 
 # Sources
 
@@ -1905,3 +1906,9 @@ greet("art")
 
 greet(name="art")
 ```
+
+## Testing
+
+[Great article on testing Python](https://realpython.com/python-testing/)
+
+[Testing Python in VS Code](https://code.visualstudio.com/docs/python/testing)

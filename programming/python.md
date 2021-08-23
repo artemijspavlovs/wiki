@@ -67,6 +67,10 @@
       - [\*args](#args)
       - [\*\*kwargs](#kwargs)
       - [Parameter Ordering](#parameter-ordering)
+  - [Built-in Functions](#built-in-functions)
+    - [General](#general)
+    - [Math](#math)
+    - [zips](#zips)
 
 # Sources
 
@@ -1178,7 +1182,7 @@ def parent():
 
 ### `*args` and `*kwargs`
 
-[Doc reference](https://book.pythontips.com/en/latest/args_and_kwargs.html#args-and-kwargs)
+[Doc Reference](https://book.pythontips.com/en/latest/args_and_kwargs.html#args-and-kwargs)
 
 #### \*args
 
@@ -1211,3 +1215,60 @@ do_kwargs(name="Elon", surname="Musk", planet="Mars")
 #### Parameter Ordering
 
 `def my_function( parameters, \*args, default_parameters, \*\*kwargs )`
+
+## Built-in Functions
+
+[Doc Reference](https://docs.python.org/3/library/functions.html)
+
+Some of the more commonly used ones include:
+
+### General
+
+`all` - checks if **all items** in an **iterable object** are **`Truthy`**
+
+`any` - checks if **any** item in the **iterable object** are **`Truthy`**
+
+`reversed` returns a reversed list
+
+`len` - returns the lenght of an object
+
+`sorted` - creates a new object containing a sorted list, tuple or dictionary ( using `lambda` functions )
+
+```python
+# ,key= specifies how to sort data
+> sorted(users,key=lambda user: user['username'])
+# sort dict by name
+```
+
+`max`, `min` - get maximal and minimal value of object, list, tuple or string ( returns letter with highest/lowest digit value )
+
+### Math
+
+`abs` - the absolute value of a number $|-23| = 23$
+
+`sum` - returns a sum of a set of elements
+
+there’s an alternative in `math` module called `fsum`
+
+`round` - returns a rounded value, rounds to `int` by **default**
+
+`sorted` - sorts numbers in another object, does not change initial iterable object can be used on lists, tuples
+
+### zips
+
+- adds numbers with the same index in 2 lists into one tuple
+- goes from left to right
+- stops when the shortest iterable ends
+- can have more then 2 objects
+
+can return a list
+
+```python
+list(zip([1,2,3],[4,5,6]))
+# Output : [(1, 4), (2, 5), (3, 6)]
+```
+
+```python
+dict(zip([1,2,3],[4,5,6]))
+# Output {1: 4, 2: 5, 3: 6}
+```

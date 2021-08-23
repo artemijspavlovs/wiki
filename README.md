@@ -2,12 +2,12 @@ The repository contains accumulated knowledge about Cloud, DevOps, and various p
 
 The topics that will be included are:
 
-**IT Fundamentals**
+### IT Fundamentals
 
 - Linux
 - Networking
 
-**Programming**
+### Programming
 
 - [Python](./programming/python.md)
 - golang
@@ -15,7 +15,7 @@ The topics that will be included are:
 - PowerShell
 - Algorithms and Data Structures
 
-**Web Development**
+### Web Development
 
 - HTML/CSS
 - React
@@ -31,17 +31,17 @@ The topics that will be included are:
   - Authentication
   - Serverless
 
-**Cloud**
+### Cloud
 
 - Azure
 - Google Cloud Platform
 
-**Containerisation**
+### Containerisation
 
 - Docker
 - Kubernetes
 
-**Infrastructure as Code**
+### Infrastructure as Code
 
 - Terraform
   - Terratest
@@ -49,13 +49,13 @@ The topics that will be included are:
 - Ansible
 - Pulumi
 
-**CI/CD**
+### CI/CD
 
 - Azure DevOps
 - GitLab
 - Spinnaker
 
-**Databases**
+### Databases
 
 - SQL
   - PostgreSQL

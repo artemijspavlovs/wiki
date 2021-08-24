@@ -113,7 +113,7 @@
 
 [Zero to Mastery: Complete Python Developer in 2021](https://www.udemy.com/course/complete-python-developer-zero-to-mastery/) by [Andrei Neagoie](https://www.udemy.com/user/andrei-neagoie/)
 
-> Zero to Mastery have opened their own [Academy](https://academy.zerotomastery.io), which has become one of the few learning sources that I use on daily basis.
+> Zero to Mastery have opened their own [Academy](https://academy.zerotomastery.io), which has become one of the few learning sources that I use daily.
 
 ### Additional Resources
 
@@ -302,7 +302,7 @@ surname = "Bravo"
 blog = "blog.artpav.dev"
 ```
 
-- `f` strings - the preffered way to format strings in Python 3
+- `f` strings - the preferred way to format strings in Python 3
 
 ```py
 print(f"Hi there! My name is {name} {surname}, check out my blog at {blog}!")
@@ -1667,7 +1667,7 @@ class Administrator(User, Moderator):
 
 #### Method Resolution Order ( MRO )'
 
-> Returns the order in which, in case of inheritance, python will look for a method .
+> Returns the order in which, in the case of inheritance, python will look for a method.
 
 `ClassName.mro()`
 

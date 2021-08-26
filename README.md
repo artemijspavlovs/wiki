@@ -4,7 +4,7 @@ The topics that will be included are:
 
 ### IT Fundamentals
 
-- Linux
+- [Linux](./fundamentals/linux.md)
 - Networking
 
 ### Programming

@@ -1,6 +1,5 @@
-# Linux
+``# Linux
 
-- [Linux](#linux)
 - [Sources](#sources)
 - [Linux Boot Process](#linux-boot-process)
       - [BIOS / UEFI](#bios--uefi)
@@ -20,7 +19,7 @@
   - [Interacting with GRUB](#interacting-with-grub)
     - [initramfs](#initramfs)
 - [Install, Configure and Monitor Kernel Modules](#install-configure-and-monitor-kernel-modules)
-  - [Interacting with kernel Modules](#interacting-with-kernel-modules)
+  - [Interacting with Kernel Modules](#interacting-with-kernel-modules)
   - [Kernel Module File Location](#kernel-module-file-location)
 - [Configure and Verify Network Connection Parameters](#configure-and-verify-network-connection-parameters)
   - [Network Fundamentals](#network-fundamentals)
@@ -31,6 +30,16 @@
     - [Interacting with Network Interfaces, Connections and Packets](#interacting-with-network-interfaces-connections-and-packets)
     - [Interacting with DNS](#interacting-with-dns)
   - [Network File Location](#network-file-location)
+- [Manage Storage in a Linux Environment](#manage-storage-in-a-linux-environment)
+  - [Pseudo File Systems](#pseudo-file-systems)
+    - [Primary Pseudo File systems in Linux](#primary-pseudo-file-systems-in-linux)
+  - [Main File System File Location](#main-file-system-file-location)
+    - [Swap Space](#swap-space)
+  - [File System Hierarchy Standards](#file-system-hierarchy-standards)
+  - [Partitions and Mount Points](#partitions-and-mount-points)
+  - [File System Types](#file-system-types)
+  - [Interacting with File System](#interacting-with-file-system)
+  - [File System File Location](#file-system-file-location)
 
 # Sources
 
@@ -256,7 +265,7 @@ Linux kernel is monolithic:
 
 `Linux` - Linux kernel
 
-## Interacting with kernel Modules
+## Interacting with Kernel Modules
 
 `uname` - displays information about the currently running kernel
 
@@ -288,7 +297,7 @@ Refer to [Network Fundamentals](/fundamentals/network.md) page
 
 ## Network Device Naming
 
-`en` - etherner
+`en` - ethernet
 
 `wl` - wireless
 
@@ -300,13 +309,13 @@ Refer to [Network Fundamentals](/fundamentals/network.md) page
 
 ## Network Bonding and Link Aggregation
 
-> `network bonding` - grouping multiple network interfaces and using it as one
+> `network bonding` - grouping multiple network interfaces and using them as one
 
 > `network briding` - combining 2 or more networks into one logical network
 
 ### Bonding Modes
 
-`Mode=1` - active-backup policy - all interfaces are in the backup state while one remain active
+`Mode=1` - active-backup policy - all interfaces are in the backup state while one remains active
 
 `Mode=2` - XOR policy - the interface is selected based on the result of an XOR operation
 
@@ -336,17 +345,17 @@ nmcli con \
 nmcli con edit # enter configuration manager
 ```
 
-`netstat` - Show network status related information
+`netstat` - Show network status-related information
 
 > requires **net-tools**
 
 ```sh
-netstate # show active connections
+netstat # show active connections
 netstat -a # show all connections
-netstat -au # show all udp connections
-netstat -at # show all tcp connections
-netstat -tulp # show what processes are listening on what tcp and udp ports
-netstat -tulpe # show what processes are listening on what tcp and udp ports + user information
+netstat -au # show all UDP connections
+netstat -at # show all TCP connections
+netstat -tulp # show what processes are listening on what TCP and UDP ports
+netstat -tulpe # show what processes are listening on what TCP and UDP ports + user information
 
 netstat -r # show routing information
 netstat -rn # show routing information with IPs
@@ -377,7 +386,7 @@ nslookup -query=any $DOMAIN_NAME
 nslookup -port=$PORT_NUMBER $DOMAIN_NAME
 ```
 
-`dig` - short for **Domain Information Groper**, allows to query DNS servers and perform DNS lookups
+`dig` - Domain Information Groper - allows to query DNS servers and perform DNS lookups
 
 ```sh
 dig $DOMAIN_NAME # show full information regarding dns records
@@ -386,11 +395,11 @@ dig $DOMAIN_NAME $RECORD_TYPE +short # show either IPs or DNS names that are ret
 dig $DOMAIN_NAME $RECORD_TYPE +short $DOMAIN_NAME $RECORD_TYPE +short # query multiple domains
 ```
 
-`host` - simple dns lookup
+`host` - simple DNS lookup
 
 ```sh
 host -t $RECORD_TYPE $DOMAIN_NAME # show specified record type
-host $DOMAIN_NAME # show
+host $DOMAIN_NAME # show ip address information for the domain
 ```
 
 ## Network File Location
@@ -403,7 +412,7 @@ host $DOMAIN_NAME # show
 
 `/etc/network` - the location of the network configuration files.
 
-`/etc/nsswitch.conf` - the file that is used to determine the sources from which to obtain nameservice information.
+`/etc/nsswitch.conf` - the file that is used to determine the sources from which to obtain name service information.
 
 `/etc/resolv.conf` - the file that contains the list of external DNS servers.
 
@@ -412,3 +421,175 @@ host $DOMAIN_NAME # show
 `/etc/sysctl.conf` - used to override default kernel parameter values.
 
 `/etc/dhcp/dhclient.conf` - used to configure the DHCP client.
+
+# Manage Storage in a Linux Environment
+
+## Pseudo File Systems
+
+`regular file system` - lays out file and folders on a physical hard drive
+
+`pseudo file system` - does not exist on the hard drive, **it's created in RAM while the system is running**
+
+### Primary Pseudo File systems in Linux
+
+`/proc` - contains information about the processes running on the system. Also contains some metadata like `cpuinfo`, `meminfo`, `partitions`, `uptime`, `version` etc.
+
+`/sys` - contains information about the systems hardware and kernel modules.
+
+## Main File System File Location
+
+`/` - root directory
+
+`/var` - variable , log files and dynamic content
+
+`/home` - users' home directory
+
+`/boot` - Linux Kernel and supporting files
+
+`/opt` - _optional_ software, used by third party software wendors. Extensively used in enterprise
+
+### Swap Space
+
+> temporary storage that acts like RAM
+
+- when a percentage of RAM is full, kernel will move less used data to `swap`
+
+usually, `swap` is put into a separate partition. the swap size should not be less then 50% of the available RAM
+
+## File System Hierarchy Standards
+
+> Linux is a single root Operating System
+
+`/` - root directory
+
+`/bin` - user binaries
+
+`/boot` - files necessary to get the system booted up and kernel
+
+`/dev` - device references
+
+`/etc` - system service configuration
+
+`/home` - users' home directory
+
+`/lib` and `/lib64` - application code that is shared across multiple apps on the system
+
+`/media` - mount location for external media
+
+`/mnt` - mount location for other hard drives
+
+`/opt` - alternative to `/bin` for binaries and apps
+
+`/proc` - information about the running Linux system
+
+`/root` - home directory of the **`root`** user
+
+`/sbin` - system administrator tools and apps
+
+> usually only **`root`** user has access to `/sbin`
+
+`/srv` - server applications ( web servers, etc. )
+
+`/tmp` - application temporary data
+
+`/var` - log, printer files etc.
+
+## Partitions and Mount Points
+
+![partitions and mount points](/fundamentals/linux-resources/partitions-and-mount-points.png)
+
+`sd` - sata disk, `xvd` - virtual disk
+
+`a` - first disk
+
+`1` - first partition
+
+## File System Types
+
+`ext3` - 3rd extended file system, introduced in 2001, includes journaling. Limited by individual file size of 2 TB and an overall system size of 32 TB
+
+`ext4` - 4th extended file system, introduced in 2008, includes journaling. Allows individual file sizes of up to 16 TB and an overall system size of 1 EB ( Exabyte )
+
+`xfs` - ported to Linux in 2014, 64bit file system, includes journaling. Great support for parallel
+
+`nfs` - Network File System - client/server file system that allows file access across network
+
+`smb` - Server Message Block - network protocol allowing network access to files and other network resources
+
+`cifs` - Common Internet File System - version of smb
+
+`ntfs` - proprietary journaling file system created by Microsoft. Default file system on modern versions of Windows Operating System
+
+## Interacting with File System
+
+`iostat` - reports CPU and I/O stats
+
+`lsblk` - lists block devices
+
+`blkid` - reports block device metadata
+
+> block device is any device that can take large amount of data
+
+`fdisk` - manages device partitions. **Does NOT work with partitions larger then 2 TB**
+
+> requires sudo
+
+<!-- TODO: add more on fdisk? -->
+
+```sh
+fdisk -l # show information on all mounted drives
+fdisk -l /dev/$DRIVE_NAME # on specific drive
+
+fdisk /dev/$DRIVE_NAME # create a new partition on the drive, brings up a wizard
+# m - list possible actions
+# p - print existing partitions
+# l - change partition type
+# n - create a new partition
+```
+
+`parted` - manages device partitions. **Does not have any limitation for partition size**
+
+`mkfs` - Make File System - builds a file system or a partitioned device ( usually a disk drive )
+
+`df` - Disk Free - reports free space on the file system that is passed to it.
+
+> when no arguments - lists the system
+
+```sh
+df -ahT # show full information including file system type
+df -ahT $PATH # show full information including file system type for a specific path
+```
+
+`du` - Disk Used - reports the size of the file pased to the commend
+
+> when no arguments - lists the file size of all files on the system
+
+```sh
+du -ha $PATH # show size for all files and directories
+du -hs $PATH # show only the size of the dir/file of path specified
+```
+
+## File System File Location
+
+`/etc/fstab` - File System Table - contains information necessary to allow automatic mounting of devices
+
+`/etc/crypttab` - contains information for encrypted devices that are set up during system boot
+
+`/dev/` - device files for all devices on the system
+
+`/dev/mapper` - contains a listing of the Logical volumes managed by LVM
+
+`/dev/disk/by-*`
+
+- `id` - mapping of the devices based on the serial number
+- `uuid` - mapping of devices based on their UUID. **This is how the devices are listed in `fstab` by default**
+- `path` - mapping of the devices based on the shortest physical path according to **`sysfs`** and contains the bus name ( **pci**, **ata**, etc. )
+- `multipath` - path mapping for the device ( if it exists )
+
+`/etc/mtab` - Mount Table - contains list of currently mounted file systems according to the **`mount`** command
+
+`/proc/mounts` - `mtab` alternative maintained by the kernel
+
+`/sys/block` - contains symlinks to each of the block devices on the system
+
+`/proc/partitions` - contains the major and minor numbers of the partitioned devices

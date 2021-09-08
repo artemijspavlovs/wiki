@@ -170,7 +170,7 @@ The other file that GRUB looks for is `device.map`, which indicates which drive 
 
 ### Installing Legacy GRUB
 
-```sh
+```shell
 grub-install $DEVICE_NAME
 
 # to find a device that you can install grub on
@@ -229,13 +229,13 @@ debian - `grub-$command`
 
 RedHat - you need to append a run-level number at the end of the kernel command line
 
-```sh
+```shell
 <TYPE=pc KEYTABLE=us rd_NO_DM rhgb quiet 2
 ```
 
 Debian - systemd specific command to boot into different target
 
-```sh
+```shell
 linux /boot/vmlinuz-4.13.0-43-generic root=UUID=$ID ro systemd.unit=rescue.target
 ```
 
@@ -329,7 +329,7 @@ Refer to [Network Fundamentals](/fundamentals/network.md) page
 
 `nmcli` - Network Manager binary
 
-```sh
+```shell
 nmcli dev show # show physical hardware that is used to connect to the network
 nmcli con show # show network configuration for a particular device
 nmcli dev status # check status of network cards
@@ -349,7 +349,7 @@ nmcli con edit # enter configuration manager
 
 > requires **net-tools**
 
-```sh
+```shell
 netstat # show active connections
 netstat -a # show all connections
 netstat -au # show all UDP connections
@@ -366,7 +366,7 @@ netstat -ie # show extended interface information
 
 `tcpdump` - show packet information
 
-```sh
+```shell
 tcpdump -D # show available interfaces
 tcpdump -i $INTERFACE_NAME # show packets that are going through an interface
 # .pcap - packet capture
@@ -378,7 +378,7 @@ tcpdump -r $FILE_NAME.pcap # read saved packet information
 
 `nslookup` - query the DNS system
 
-```sh
+```shell
 nslookup $DOMAIN_NAME
 nslookup -query=mx $DOMAIN_NAME
 nslookup -query=ns $DOMAIN_NAME
@@ -388,7 +388,7 @@ nslookup -port=$PORT_NUMBER $DOMAIN_NAME
 
 `dig` - Domain Information Groper - allows to query DNS servers and perform DNS lookups
 
-```sh
+```shell
 dig $DOMAIN_NAME # show full information regarding dns records
 dig $DOMAIN_NAME $RECORD_TYPE # query for specific record type
 dig $DOMAIN_NAME $RECORD_TYPE +short # show either IPs or DNS names that are returned
@@ -397,7 +397,7 @@ dig $DOMAIN_NAME $RECORD_TYPE +short $DOMAIN_NAME $RECORD_TYPE +short # query mu
 
 `host` - simple DNS lookup
 
-```sh
+```shell
 host -t $RECORD_TYPE $DOMAIN_NAME # show specified record type
 host $DOMAIN_NAME # show ip address information for the domain
 ```
@@ -524,19 +524,25 @@ usually, `swap` is put into a separate partition. the swap size should not be le
 
 `iostat` - reports CPU and I/O stats
 
+`swapon --summary` - view swap usage summary, same information as in **`/proc/swaps`**
+
+`mkswap` - Make Swap - create swap partitions
+
+```shell
+sudo mkswap $PARTITION_NAME # example: /etc/sdb1
+```
+
 `lsblk` - lists block devices
 
 `blkid` - reports block device metadata
 
-> block device is any device that can take large amount of data
+> `block device` is any device that can take large amount of data
 
 `fdisk` - manages device partitions. **Does NOT work with partitions larger then 2 TB**
 
 > requires sudo
 
-<!-- TODO: add more on fdisk? -->
-
-```sh
+```shell
 fdisk -l # show information on all mounted drives
 fdisk -l /dev/$DRIVE_NAME # on specific drive
 
@@ -549,13 +555,43 @@ fdisk /dev/$DRIVE_NAME # create a new partition on the drive, brings up a wizard
 
 `parted` - manages device partitions. **Does not have any limitation for partition size**
 
+> requires sudo
+
+```shell
+sudo parted
+(parted) select /dev/sdb # select device
+(parted) mkpart # create a partition
+(parted) p # print partition info
+(parted) rm $PARTITION_NUMBER # delete partition
+(parted) rescue # recover partition
+```
+
 `mkfs` - Make File System - builds a file system or a partitioned device ( usually a disk drive )
+
+```shell
+sudo mkfs.xfs /dev/$PARTITION_NAME # create a new XFS file system on the partition
+```
+
+`mount` - `sudo mount $DEVICE_NAME /path/to/directory` - mount partitions to directories or show existing mounts
+
+```shell
+sudo mount -a # mount all devices from /etc/fstab
+sudo mount /dev/sdb1 /mnt/mydir
+```
+
+> mounts that are created using `mount` command are removed after restart
+
+`umount` - `sudo umount $DEVICE_NAME` - Eremove a file system attached to a mount point
+
+```shell
+sudo umount /dev/sdb1
+```
 
 `df` - Disk Free - reports free space on the file system that is passed to it.
 
 > when no arguments - lists the system
 
-```sh
+```shell
 df -ahT # show full information including file system type
 df -ahT $PATH # show full information including file system type for a specific path
 ```
@@ -564,9 +600,98 @@ df -ahT $PATH # show full information including file system type for a specific 
 
 > when no arguments - lists the file size of all files on the system
 
-```sh
+```shell
 du -ha $PATH # show size for all files and directories
 du -hs $PATH # show only the size of the dir/file of path specified
+```
+
+### Creating a Permanent Mount
+
+```shell
+sudo mkfs.xfs $PARTITION_PATH # example : /dev/sdb1 - create XFS file system on the partition
+sudo blkid $PARTITION_PATH # return UUID of the created partition, note down the UUID!
+# example: /dev/sdb1: UUID="ad112bd5-b71f-41b6-a123-ed346d53cb2f" TYPE="xfs"
+sudo vi /etc/fstab # add the new partition to the fstab, this action updates the file system table
+echo 'UUID=ad112bd5-b71f-41b6-a123-ed346d53cb2f       /mnt/mydir    xfs     defaults        0 0' >> /etc/fstab
+sudo mount -a # mount the new device
+df -h /mnt/mydir
+```
+
+**fstab record breakdown**
+
+`UUID=ad112bd5-b71f-41b6-a123-ed346d53cb2f /mnt/mydir xfs defaults 0 0`
+
+`UUID` - UUID of the partition
+
+`/mnt/mydir` - mounting point for the partition
+
+`xfs` - file system type
+
+`defaults` - default mounting options
+
+`0` - disable disk check
+
+`0` - disable metadata dump
+
+### Logical Volume Manager ( LVM )
+
+`pvcreate` - Physical Volume Create - create physical volumes from drives
+
+```shell
+# pvcreate $DRIVE_PATH
+pvcreate /dev/sdb /dev/sdc /dev/sdd
+```
+
+`pvdisplay` - Physical Volume Display - return a list of available physical volumes
+
+```shell
+pvdisplay | more # return full information about physical volumes
+pvdisplay -s # return short information about physical volumes ( path and capacity )
+```
+
+`pvs` - show free space on physical volumes
+
+---
+
+`vgcreate` - Volume Group Create - create a volume group from a set of physical volumes
+
+```shell
+# vgcreate $VOLUME_GROUP_NAME $PHISYCAL_VOLUMES
+vgcreate bigolvolumegroup /dev/sdb /dev/sdc
+```
+
+`vgdisplay` - Volume Group Display - return a list of available volume groups
+
+```shell
+vgdisplay | more # return full information about volume groups
+vgdisplay -s # return short information about volume groups ( name, size, used and free space )
+```
+
+`vgextend` - Volume Group Extend - add additional physical volumes to volume group
+
+```shell
+# vgextend $VOLUME_GROUP_NAME $DRIVE
+vgextend bigolvolumegroup /dev/sdd
+```
+
+`vgs` - show free space on volume groups
+
+---
+
+`lvcreate` - Logical Volume Create - create logical volume from volume group
+
+```shell
+# lvcreate -n $PARTITION_NAME --size +${LOGICAL_VOLUME_SIZE}G $VOLUME_GROUP_NAME
+lvcreate -n bigollogicalvolume --size 100G bigolvolumegroup 
+```
+
+`lvdisplay` - Logical Volume Display - return a list of available logical volumes
+
+`lvextend` - Logical Volume Extend - extend or reduce the logical volume size
+
+```shell
+lvextend --size +${ADDITIONAL_SIZE} # increase the logical volume size
+lvextend --size -${ADDITIONAL_SIZE} # reduce the logical volume size
 ```
 
 ## File System File Location

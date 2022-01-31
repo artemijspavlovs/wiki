@@ -115,6 +115,10 @@
 
 > Zero to Mastery have opened their own [Academy](https://academy.zerotomastery.io), which has become one of the few learning sources that I use on daily basis.
 
+### Python Tooling
+
+[Poetry](https://python-poetry.org) - package and dependency manager
+
 ### Additional Resources
 
 [Built In Functions](https://docs.python.org/3/library/index.html)
